@@ -27,8 +27,21 @@ class UserRepository {
         }
     }
 
-    public function getUserById($id) {
-        // return User $user
+    public static function getUserById($id) {
+        $sql = "SELECT * FROM `users` WHERE `id` = ?";
+        $stm = \DbConn::conn()->prepare($sql);
+        try {
+            if ($stm->execute(array($id))) {
+                $res = $stm->fetchAll(\PDO::FETCH_CLASS);
+                if (count($res) > 0) {
+                    $u = $res[0];
+                    return new User($u->fname, $u->lname, $u->email, $u->password, $u->address, $u->id);
+                }
+            }
+            return false;
+        } catch (\PDOException $ex) {
+            return false;
+        }
     }
 
     public function authenticateUser($email, $password) {

@@ -15,11 +15,14 @@
     },
     "authors": [
         {
-            "name" : "Piotr Synowiec",
-            "email": "psynowiec@gmail.com",
-            "name" : "Katarzyna Kucharska",
-            "email": "katarzyna.jucharska@outlook.com",
-            "name" : "Rob Stuglik",
+            "name": "Piotr Synowiec",
+            "email": "psynowiec@gmail.com"
+        },
+        {
+            "name": "Katarzyna Kucharska",
+            "email": "katarzyna.jucharska@outlook.com"
+        }, {
+            "name": "Rob Stuglik",
             "email": "rob.stuglik@outlook.com"
         }
     ]

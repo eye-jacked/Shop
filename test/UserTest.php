@@ -3,10 +3,10 @@
 /*
   Piotr Synowiec (c) 2016 psynowiec@gmail.com
  */
+require_once __DIR__ . './../vendor/autoload.php';
 
 use Shop\User;
-
-require_once 'src/connection.php';
+use Shop\UserRepository;
 
 class UserTest extends PHPUnit_Extensions_Database_TestCase {
 
@@ -24,7 +24,6 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase {
     }
 
     protected function getDataSet() {
-//        return $this->createXMLDataSet('users.xml');
         return $this->createFlatXMLDataSet('fixtures/users.xml');
     }
 
@@ -32,8 +31,22 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals(2, $this->getConnection()->getRowCount('users'));
     }
 
-    public function test1() {
-        User::CreateUser();
+    public function testAddUser() {
+        $fname = "Jan";
+        $lname = "Kowalski";
+        $email = "jan.kowalski@onet.pl";
+        $password = "jan";
+        $address = "Kasztanowa 7, 10-100 Kowal";
+        $user = new User($fname, $lname, $email, $password, $address);
+
+        $this->assertTrue(UserRepository::addUser($user));
+        $this->assertFalse(UserRepository::addUser($user));
+    }
+
+    public function testGetUserById() {
+        //var_dump(UserRepository::getUserById(1));
+        $this->assertFalse(UserRepository::getUserById(100));
+        $this->assertNotFalse(UserRepository::getUserById(1));
     }
 
 }
