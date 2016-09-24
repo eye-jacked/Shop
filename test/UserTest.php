@@ -3,6 +3,7 @@
 /*
   Piotr Synowiec (c) 2016 psynowiec@gmail.com
  */
+
 require_once __DIR__ . './../vendor/autoload.php';
 
 use Shop\User;
@@ -24,11 +25,11 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase {
     }
 
     protected function getDataSet() {
-        return $this->createFlatXMLDataSet('fixtures/users.xml');
+        return $this->createFlatXMLDataSet('fixtures/fake-users.xml');
     }
 
     public function testGetRowCount() {
-        $this->assertEquals(2, $this->getConnection()->getRowCount('users'));
+        $this->assertEquals(20, $this->getConnection()->getRowCount('users'));
     }
 
     public function testAddUser() {
@@ -47,6 +48,37 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase {
         //var_dump(UserRepository::getUserById(1));
         $this->assertFalse(UserRepository::getUserById(100));
         $this->assertNotFalse(UserRepository::getUserById(1));
+    }
+
+    public function testAuthenticateUser() {
+        $id = 8;
+        $email = 'drohan@gmail.com';
+        $pass = 'marlee';
+        $this->assertEquals($id, UserRepository::authenticateUser($email, $pass));
+        $pass = 'wrong_password';
+        $this->assertFalse(UserRepository::authenticateUser($email, $pass));
+    }
+
+    public function testUpdateUser() {
+        $id = 1;
+        $user = UserRepository::getUserById($id);
+        $fn = 'Jack';
+        $ln = 'Sparrow';
+        $user->setFname($fn);
+        $user->setLname($ln);
+        $this->assertTrue(UserRepository::updateUser($user));
+        $chuser = UserRepository::getUserById($id);
+        $this->assertEquals($fn, $chuser->getFname());
+    }
+
+    public function testPasswordChange() {
+        $id = 1;
+        $user = UserRepository::getUserById($id);
+        $newpass = 'password';
+        $user->setPassword($newpass);
+        $email = $user->getEmail();
+        UserRepository::updateUser($user);
+        $this->assertEquals($id, UserRepository::authenticateUser($email, $newpass));
     }
 
 }
