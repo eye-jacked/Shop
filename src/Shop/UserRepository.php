@@ -14,8 +14,12 @@ use Shop\User;
 
 class UserRepository {
 
+    /**
+     *
+     * @param User $user
+     * @return boolean
+     */
     public static function addUser(User $user) {
-        // logika zapisu do DB
 
         $sql = "INSERT INTO `users` (`fname`,`lname`,`email`,`password`,`address`) VALUES (?,?,?,?,?)";
         $stm = \DbConn::conn()->prepare($sql);
@@ -27,6 +31,14 @@ class UserRepository {
         }
     }
 
+    /**
+     * getUserById
+     *
+     * returns User from DB or FALSE
+     *
+     * @param int $id
+     * @return boolean|User
+     */
     public static function getUserById($id) {
         $sql = "SELECT * FROM `users` WHERE `id` = ?";
         $stm = \DbConn::conn()->prepare($sql);
@@ -45,7 +57,9 @@ class UserRepository {
     }
 
     /**
-     * User authentication
+     * authenticateUser
+     *
+     * authenticate user by email and password with DB
      *
      * @param string $email
      * @param string $password
@@ -71,6 +85,14 @@ class UserRepository {
         return false;
     }
 
+    /**
+     * updateUser
+     *
+     * updates existing user in DB
+     *
+     * @param User $user
+     * @return boolean
+     */
     public static function updateUser(User $user) {
         $sql = "UPDATE `users` SET `fname`=?,`lname`=?,`email`=?,`password`=?,`address`=? WHERE `id`=?";
         $stm = \DbConn::conn()->prepare($sql);

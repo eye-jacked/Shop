@@ -12,7 +12,7 @@ class User {
     private $fname;
     private $lname;
     private $email;
-    private $password;
+    private $hash_password;
     private $address;
 
     public function __construct($fname, $lname, $email, $password, $address, $id = null) {
@@ -20,51 +20,51 @@ class User {
         $this->fname = $fname;
         $this->lname = $lname;
         $this->email = $email;
-        $this->password = $password;
+        $this->setPassword($password);
         $this->address = $address;
     }
 
-    function getId() {
+    public function getId() {
         return $this->id;
     }
 
-    function getFname() {
+    public function getFname() {
         return $this->fname;
     }
 
-    function getLname() {
+    public function getLname() {
         return $this->lname;
     }
 
-    function getEmail() {
+    public function getEmail() {
         return $this->email;
     }
 
-    function getPassword() {
-        return $this->password;
+    public function getPassword() {
+        return $this->hash_password;
     }
 
-    function getAddress() {
+    public function getAddress() {
         return $this->address;
     }
 
-    function setFname($fname) {
+    public function setFname($fname) {
         $this->fname = $fname;
     }
 
-    function setLname($lname) {
+    public function setLname($lname) {
         $this->lname = $lname;
     }
 
-    function setEmail($email) {
+    public function setEmail($email) {
         $this->email = $email;
     }
 
-    function setPassword($password) {
-        $this->password = $password;
+    public function setPassword($password) {
+        $this->hash_password = password_hash($password, PASSWORD_BCRYPT);
     }
 
-    function setAddress($address) {
+    public function setAddress($address) {
         $this->address = $address;
     }
 
