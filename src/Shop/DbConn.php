@@ -4,8 +4,6 @@
   Piotr Synowiec (c) 2016 psynowiec@gmail.com
  */
 
-
-
 require_once __DIR__ . './../../vendor/autoload.php';
 
 class DbConn {
@@ -25,10 +23,3 @@ class DbConn {
     }
 
 }
-
-//$stm = DbConn::conn()->prepare('SELECT * FROM users');
-//$stm->execute();
-//$res = $stm->fetchAll(PDO::FETCH_CLASS);
-//var_dump($res);
-//var_dump($res[0]->id);
-//var_dump($res[0]->fname);
