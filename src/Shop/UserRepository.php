@@ -44,16 +44,44 @@ class UserRepository {
         }
     }
 
-    public function authenticateUser($email, $password) {
-        // return user ID or false
+    /**
+     * User authentication
+     *
+     * @param string $email
+     * @param string $password
+     * @return int $id|boolean
+     */
+    public static function authenticateUser($email, $password) {
+        // return user ID or false/
+        $sql = "SELECT `id`, `password` FROM `users` WHERE `email` = ?";
+        $stm = \DbConn::conn()->prepare($sql);
+        try {
+            if ($stm->execute(array($email))) {
+                $res = $stm->fetchAll(\PDO::FETCH_CLASS);
+                if (count($res) == 1) {
+                    $u = $res[0];
+                    if (password_verify($password, $u->password)) {
+                        return $u->id;
+                    }
+                }
+            }
+        } catch (\PDOException $ex) {
+            return false;
+        }
+        return false;
     }
 
-    public function updateUser(User $user) {
-
-    }
-
-    private function saveToDB(User $user) {
-
+    public static function updateUser(User $user) {
+        $sql = "UPDATE `users` SET `fname`=?,`lname`=?,`email`=?,`password`=?,`address`=? WHERE `id`=?";
+        $stm = \DbConn::conn()->prepare($sql);
+        try {
+            return $stm->execute(array($user->getFname(), $user->getLname(),
+                        $user->getEmail(), $user->getPassword(),
+                        $user->getAddress(), $user->getId()));
+        } catch (\PDOException $ex) {
+            return false;
+        }
+        return false;
     }
 
 }
