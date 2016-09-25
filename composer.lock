@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3ecf53d2e6c4781c11ef4abc29d665b6",
-    "content-hash": "f9be1f9c59155dd7fc0a0a5cf57a29e0",
+    "hash": "fcaa6e34078b44262ef7505fef26376a",
+    "content-hash": "9a2a1b2a7317537115cdfd95d2cc1843",
     "packages": [],
     "packages-dev": [
         {
@@ -1362,6 +1362,46 @@
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
             "time": "2016-09-02 02:12:52"
+        },
+        {
+            "name": "vladahejda/phpunit-assert-exception",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/VladaHejda/PhpUnitAssertException.git",
+                "reference": "b81f0f9a5a24a1401647acdecad362acffeb51b6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/VladaHejda/PhpUnitAssertException/zipball/b81f0f9a5a24a1401647acdecad362acffeb51b6",
+                "reference": "b81f0f9a5a24a1401647acdecad362acffeb51b6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5",
+                "phpunit/phpunit": ">=3.7.31"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Vladislav Hejda",
+                    "email": "jsem@hejdav.cz"
+                }
+            ],
+            "description": "Assert exception PHP Unit trait.",
+            "keywords": [
+                "phpunit"
+            ],
+            "time": "2015-10-23 01:29:46"
         },
         {
             "name": "webmozart/assert",
