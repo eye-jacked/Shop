@@ -11,6 +11,8 @@ use Shop\UserRepository;
 
 class UserTest extends PHPUnit_Extensions_Database_TestCase {
 
+    use VladaHejda\AssertException;
+
     static private $pdo = null;
     private $conn = null;
 
@@ -36,7 +38,7 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase {
         $fname = "Jan";
         $lname = "Kowalski";
         $email = "jan.kowalski@onet.pl";
-        $password = "jan";
+        $password = 'Password1';
         $address = "Kasztanowa 7, 10-100 Kowal";
         $user = new User($fname, $lname, $email, $password, $address);
 
@@ -71,12 +73,43 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals($fn, $chuser->getFname());
     }
 
+    public function testValidateEmail() {
+        $email = 'janek@yenkee.com';
+        $pass = 'Password1';
+
+        $user = new User('', '', $email, $pass, '');
+
+        //$this->assertFalse($user->validateEmail('$user->getEmail()'));
+
+        $this->assertException(function () {
+            new User('', '', 'franek@kimono.com', $pass, '');
+        });
+    }
+
+    public function testValidatePassword() {
+        $email = 'janek@yenkee.com';
+        $pass = 'password';
+
+        $this->assertException(function () {
+            new User('', '', $email, $pass, '');
+        });
+
+        $pass = 'Password1';
+        $this->assertNotNull(new User('', '', $email, $pass, ''));
+    }
+
     public function testPasswordChange() {
         $id = 1;
         $user = UserRepository::getUserById($id);
         $newpass = 'password';
-        $user->setPassword($newpass);
+        $this->assertException(function() {
+            $user->setPassword($newpass);
+            UserRepository::updateUser($user);
+        });
+
         $email = $user->getEmail();
+        $newpass = 'Password3';
+        $user->setPassword($newpass);
         UserRepository::updateUser($user);
         $this->assertEquals($id, UserRepository::authenticateUser($email, $newpass));
     }

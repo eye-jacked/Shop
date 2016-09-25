@@ -6,36 +6,22 @@
 
 namespace Shop;
 
-class User {
+class Admin {
 
     use \Shop\TraitUserAdmin;
 
     private $id;
-    private $fname;
-    private $lname;
     private $email;
     private $hash_password;
-    private $address;
 
-    public function __construct($fname, $lname, $email, $password, $address = '', $id = null) {
+    public function __construct($email, $password, $id = null) {
         $this->id = $id;
-        $this->fname = $fname;
-        $this->lname = $lname;
         $this->setEmail($email);
         $this->setPassword($password);
-        $this->address = $address;
     }
 
     public function getId() {
         return $this->id;
-    }
-
-    public function getFname() {
-        return $this->fname;
-    }
-
-    public function getLname() {
-        return $this->lname;
     }
 
     public function getEmail() {
@@ -44,18 +30,6 @@ class User {
 
     public function getPassword() {
         return $this->hash_password;
-    }
-
-    public function getAddress() {
-        return $this->address;
-    }
-
-    public function setFname($fname) {
-        $this->fname = $fname;
-    }
-
-    public function setLname($lname) {
-        $this->lname = $lname;
     }
 
     public function setEmail($email) {
@@ -70,10 +44,6 @@ class User {
             $this->hash_password = password_hash($password, PASSWORD_BCRYPT);
             return TRUE;
         }
-    }
-
-    public function setAddress($address) {
-        $this->address = $address;
     }
 
 }

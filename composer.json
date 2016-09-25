@@ -5,7 +5,8 @@
     "require-dev": {
         "phpunit/phpunit": "^5.5",
         "phpunit/dbunit": ">=1.2",
-        "fzaninotto/faker" : "1.6.0"
+        "fzaninotto/faker" : "1.6.0",
+        "vladahejda/phpunit-assert-exception" : "1.0.0"
     },
    
     "autoload":{
