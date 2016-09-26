@@ -1,10 +1,9 @@
 <?php
 
-
 namespace Shop;
 
 class Product {
-    
+
     private $id;
     private $name;
     private $stock;
@@ -18,29 +17,32 @@ class Product {
         $this->setPrice($price);
         $this->setDescription($description);
     }
+
     public function getId() {
         return $this->id;
     }
+
     public function getName() {
         return $this->name;
     }
+
     public function getStock() {
         return $this->stock;
     }
 
     //decrements stock
     public function boughtStock($bought) {
-        if($this->stock>=$bought){
+        if ($this->stock >= $bought) {
             $this->stock -=$bought;
-        } else{
+        } else {
             return false;
         }
-
     }
 
     public function getPrice() {
         return $this->price;
     }
+
     public function getDescription() {
         return $this->description;
     }
@@ -48,13 +50,17 @@ class Product {
     public function setName($name) {
         $this->name = $name;
     }
+
     public function setStock($stock) {
         $this->stock = $stock;
     }
+
     public function setPrice($price) {
-            $this->price = $price;
+        $this->price = $price;
     }
 
     public function setDescription($string) {
         $this->description = $string;
+    }
+
 }
