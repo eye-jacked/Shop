@@ -3,7 +3,7 @@
  * Piotr Synowiec (c) 2016 psynowiec@gmail.com
  *
  * Date: 2016-09-26
- * Time: 19:40
+ * Time:  7:30
  */
 
 namespace Shop;
@@ -29,11 +29,7 @@ class OrderProducts implements \Iterator, \ArrayAccess {
         $pr['quantity'] = $quantity;
         $pr['price'] = $price;
         array_push($this->products, $pr);
-
-        //$this->products[$product_id] = $pr;
     }
-
-
 
     public function removeProduct($id) {
         foreach($this->products as $index => $product) {
@@ -88,7 +84,5 @@ class OrderProducts implements \Iterator, \ArrayAccess {
     public function offsetUnset($offset) {
         unset($this->products[$offset]);
     }
-
-
 
 }
