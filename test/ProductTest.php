@@ -2,13 +2,14 @@
 
 /*
   Piotr Synowiec (c) 2016 psynowiec@gmail.com
+    THIS VERSION USED AND EDITED BY ROB STUGLIK.
  */
 
-use Shop\User;
+use Shop\Product;
 
 require_once 'src/connection.php';
 
-class UserTest extends PHPUnit_Extensions_Database_TestCase {
+class ProductTest extends PHPUnit_Extensions_Database_TestCase {
 
     static private $pdo = null;
     private $conn = null;
@@ -24,16 +25,15 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase {
     }
 
     protected function getDataSet() {
-//        return $this->createXMLDataSet('users.xml');
-        return $this->createFlatXMLDataSet('fixtures/users.xml');
+        return $this->createFlatXMLDataSet('fixtures/products.xml');
     }
 
     public function testGetRowCount() {
-        $this->assertEquals(2, $this->getConnection()->getRowCount('users'));
+        $this->assertEquals(5, $this->getConnection()->getRowCount('products'));
     }
 
     public function test1() {
-        User::CreateUser();
+       
     }
 
 }

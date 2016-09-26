@@ -3,7 +3,7 @@
     "name": "piotr/shop",
     "description": "CodersLab exercise",
     "require-dev": {
-        "phpunit/phpunit": "^5.5",
+        "phpunit/phpunit": "4.8",
         "phpunit/dbunit": ">=1.2",
         "fzaninotto/faker" : "1.6.0"
     },

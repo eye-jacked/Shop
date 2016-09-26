@@ -9,7 +9,7 @@
     <php>
         <var name ="DB_DSN" value ="mysql:dbname=cl_shop;host=localhost"/>
         <var name ="DB_USER" value ="root"/>
-        <var name ="DB_PASSWD" value ="root"/>
+        <var name ="DB_PASSWD" value ="CodersLab"/>
         <var name ="DB_NAME" value ="cl_shop"/>
     </php>
     
