@@ -97,9 +97,15 @@ class UserRepository {
         $sql = "UPDATE `users` SET `fname`=?,`lname`=?,`email`=?,`password`=?,`address`=? WHERE `id`=?";
         $stm = \DbConn::conn()->prepare($sql);
         try {
-            return $stm->execute(array($user->getFname(), $user->getLname(),
+            $stm->execute(array($user->getFname(), $user->getLname(),
                         $user->getEmail(), $user->getPassword(),
                         $user->getAddress(), $user->getId()));
+            if($stm->rowCount() > 0 ){
+                return TRUE;
+            }
+            else {
+                return FALSE;
+            }
         } catch (\PDOException $ex) {
             return false;
         }

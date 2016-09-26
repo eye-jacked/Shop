@@ -50,6 +50,7 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase {
         //var_dump(UserRepository::getUserById(1));
         $this->assertFalse(UserRepository::getUserById(100));
         $this->assertNotFalse(UserRepository::getUserById(1));
+        $this->assertInstanceOf(User::class, UserRepository::getUserById(1));
     }
 
     public function testAuthenticateUser() {
