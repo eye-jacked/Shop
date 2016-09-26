@@ -10,7 +10,7 @@ class ProductRepository {
 
     
     public static function addProduct(Product $product) {
-        $sql = "INSERT INTO `product` (`name`,`stock`,`price`,`description`) VALUES (?,?,?,?)";
+        $sql = "INSERT INTO `products` (`name`,`stock`,`price`,`description`) VALUES (?,?,?,?)";
         $stm = \DbConn::conn()->prepare($sql);
         try {
             return $stm->execute(array($product->getName(), $product->getStock(), $product->getPrice(),
@@ -40,11 +40,17 @@ class ProductRepository {
 
 
     public static function updateProduct(Product $product) {
-        $sql = "UPDATE `users` SET `name`=?,`stock`=?,`price`=?,`description`=? WHERE `id`=?";
+        $sql = "UPDATE `products` SET `name`=?,`stock`=?,`price`=?,`description`=? WHERE `id`=?";
         $stm = \DbConn::conn()->prepare($sql);
         try {
-            return $stm->execute(array($product->getName(), $product->getStock(), $product->getPrice(),
+            $stm->execute(array($product->getName(), $product->getStock(), $product->getPrice(),
                 $product->getDescription(), $product->getId()));
+            if($stm->rowCount()>0){
+                return TRUE;
+            }
+            else{
+                return FALSE;
+            }
         } catch (\PDOException $ex) {
             return false;
         }

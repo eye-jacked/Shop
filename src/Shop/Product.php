@@ -62,5 +62,11 @@ class Product {
     public function setDescription($string) {
         $this->description = $string;
     }
+    
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+
 
 }

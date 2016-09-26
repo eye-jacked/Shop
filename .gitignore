@@ -1,2 +1,4 @@
 /vendor/
 /nbproject/
+/src/Shop/DbConn.php
+/src/Shop/dbconfig.json

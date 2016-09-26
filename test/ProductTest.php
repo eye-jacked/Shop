@@ -5,9 +5,10 @@
     THIS VERSION USED AND EDITED BY ROB STUGLIK.
  */
 
+require_once __DIR__ . './../vendor/autoload.php';
 use Shop\Product;
+use Shop\ProductRepository;
 
-require_once 'src/connection.php';
 
 class ProductTest extends PHPUnit_Extensions_Database_TestCase {
 
@@ -32,8 +33,35 @@ class ProductTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals(5, $this->getConnection()->getRowCount('products'));
     }
 
-    public function test1() {
+    public function testAddProduct() {
+       $name = "apple";
+       $price = "32.99";
+       $stock = 10;
+       $description= " a juicy green or red fruit";
        
+       $apple = new Product($name, $stock, $price, $description);
+       
+       $this->assertTrue(ProductRepository::addProduct($apple));
+    }
+    
+    public function testGetProductByID(){
+       
+        $this->assertInstanceOf(Product::class, ProductRepository::getProductById(4));
+        $this->assertFalse(ProductRepository::getProductById(100));
+        
     }
 
+    public function testUpdateProduct(){
+        $pr = ProductRepository::getProductById(4);
+        $new = 'pear';
+        $pr->setName($new);
+        
+       
+        $this->assertTrue(ProductRepository::updateProduct($pr));
+        
+        $pr->setId(100);
+       
+        $this->assertFalse(ProductRepository::updateProduct($pr));
+       
+    }
 }
