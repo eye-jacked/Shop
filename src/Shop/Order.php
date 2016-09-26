@@ -1,7 +1,9 @@
 <?php
-
-/*
-  Piotr Synowiec (c) 2016 psynowiec@gmail.com
+/**
+ * Piotr Synowiec (c) 2016 psynowiec@gmail.com
+ *
+ * Date: 2016-09-26
+ * Time: 19:40
  */
 
 namespace Shop;

@@ -1,7 +1,9 @@
 <?php
-
-/*
-  Piotr Synowiec (c) 2016 psynowiec@gmail.com
+/**
+ * Piotr Synowiec (c) 2016 psynowiec@gmail.com
+ *
+ * Date: 2016-09-26
+ * Time: 19:40
  */
 
 namespace Shop;
@@ -9,17 +11,38 @@ namespace Shop;
 use Shop\Order;
 use Shop\Product;
 
-class OrderProducts implements \Iterator {
+class OrderProducts implements \Iterator, \ArrayAccess {
 
     private $id;
     private $order_id;
     private $products = array();
-    private $postion = 0;
+    private $index = 0;
 
-    public function __construct($order_id, $product_id, Product $product) {
+    public function __construct($order_id) {
         $this->id = -1;
-        $this->order_id = $order_id;
-        array_push($this->products, $product);
+       $this->order_id = $order_id;
+
+    }
+
+    public function addProduct($product_id, $quantity, $price) {
+        $pr['id'] = $product_id;
+        $pr['quantity'] = $quantity;
+        $pr['price'] = $price;
+        array_push($this->products, $pr);
+
+        //$this->products[$product_id] = $pr;
+    }
+
+
+
+    public function removeProduct($id) {
+        foreach($this->products as $index => $product) {
+            if( $product['id'] == $id) {
+                unset($this->products[$index]);
+                break;
+            }
+        }
+        $this->products = array_values($this->products);
     }
 
     public function getId() {
@@ -31,23 +54,41 @@ class OrderProducts implements \Iterator {
     }
 
     public function current() {
-        return $this->products[$this->position];
+        return $this->products[$this->index];
     }
 
     public function key() {
-        return $this->position;
+        return $this->index;
     }
 
     public function next() {
-        ++$this->position;
+        ++$this->index;
     }
 
     public function rewind() {
-        $this->position = 0;
+        $this->index = 0;
     }
 
     public function valid() {
-        return isset($this->products[$this->position]);
+        return array_key_exists($this->index, $this->products);
     }
+
+    public function offsetExists($offset) {
+        return array_key_exists($offset, $this->products);
+    }
+
+    public function offsetGet($offset) {
+        return $this->products[$offset];
+    }
+
+    public function offsetSet($offset, $value) {
+        $this->products[$offset] = $value;
+    }
+
+    public function offsetUnset($offset) {
+        unset($this->products[$offset]);
+    }
+
+
 
 }
