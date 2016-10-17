@@ -15,15 +15,18 @@ use Shop\OrderProducts;
 
 class OrderProductsRepository {
 
-    public function addProductToOrder($order_id, Product $product) {
-
+    public function addProductToOrder($order_id, Product $product)
+    {
+        //
     }
 
-    public function delProductFromOrder($order_id, Product $product) {
-
+    public function delProductFromOrder($order_id, Product $product)
+    {
+        //
     }
 
-    public function getAllProductsForOrder($order_id) {
+    public function getAllProductsForOrder($order_id)
+    {
         // return OrderProducts object
     }
 
