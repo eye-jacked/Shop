@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-# Created by .ignore support plugin (hsz.mobi)
-### Example user template template
-### Example user template
-
-# IntelliJ project files
 /.idea/
 *.iml
 out
@@ -11,9 +5,5 @@ gen
 /nbproject
 /vendor/
 _aux/
-=======
-/vendor/
 /nbproject/
-/src/Shop/DbConn.php
-/src/Shop/dbconfig.json
->>>>>>> e212dda92d6d7c5779edf86e401122f4813e3bc8
+/vendor/
