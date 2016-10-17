@@ -42,11 +42,10 @@ class OrderTest extends PHPUnit_Extensions_Database_TestCase
         $compositeDs->addDataSet($ds3);
 
         return $compositeDs;
-
     }
 
 
-    public function test_addOrder()
+    public function testAddOrder()
     {
         $user_id = 1;
         $order = new Order(1);
@@ -54,12 +53,29 @@ class OrderTest extends PHPUnit_Extensions_Database_TestCase
         $this->assertEquals(11, OrderRepository::addOrder($order));
     }
 
-    public function test_getAllUserOrders()
+    public function testGetAllUserOrders()
     {
         $orders = OrderRepository::getAllUserOrders(1);
         $this->assertEquals(5, count($orders));
         $order = $orders[0];
         $this->assertInstanceOf(Order::class, $order);
-
     }
+
+    public function testGetOrderById()
+    {
+        $this->assertInstanceOf(Order::class, OrderRepository::getOrderById(1));
+    }
+
+    public function testUpdateOrderStatus()
+    {
+        $order1 = OrderRepository::getOrderById(1);
+        OrderRepository::updateOrderStatus($order1, 3);
+
+        $order2 = OrderRepository::getOrderById(1);
+        $this->assertEquals(3, $order2->getStatusId());
+    }
+
+
+    // sprawdzić czy GetAllUserOrders zwraca poprawne wartośći dla wszystkich pól
+
 }
