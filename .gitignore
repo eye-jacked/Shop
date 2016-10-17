@@ -1,9 +1,4 @@
-/.idea/
-*.iml
-out
-gen
-/nbproject
 /vendor/
-_aux/
 /nbproject/
-/vendor/
+/_aux/
+/.idea/
