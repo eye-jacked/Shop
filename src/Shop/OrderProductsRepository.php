@@ -42,7 +42,23 @@ class OrderProductsRepository
 
     public function getAllProductsForOrder($order_id)
     {
-        // return OrderProducts object
+        $order_products = new OrderProducts($order_id);
+        $sql = "SELECT * FROM `order_products` WHERE `order_id` = ?";
+        $stm = \DbConn::conn()->prepare($sql);
+        try {
+            $stm->execute(array($order_id));
+            if ($stm->rowCount() > 0) {
+                $res = $stm->fetchAll(\PDO::FETCH_CLASS);
+                for ($i = 0; $i < count($res); $i++) {
+                    $order_products->addProduct($res->product_id, $res->quantity, $res->price);
+                }
+                return $order_products;
+            }
+        } catch (\PDOException $ex) {
+            return false;
+        }
+        return false;
+
     }
 
     /**
@@ -51,6 +67,8 @@ class OrderProductsRepository
      */
     private function getProductFromOrder($order_id, $product_id)
     {
-        $sql = "";
+        $sql = "SELECT * FROM `order_products` WHERE `order_id` = ? AND `product_id` = ?";
+        $stm = \DbConn::conn()->prepare($sql);
+
     }
 }
