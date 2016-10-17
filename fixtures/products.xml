@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dataset>
+    <products
+            id="1"
+            name="Fire hat"
+            price="20.00"
+            description="A hat to keep you warm, but not too warm."
+            stock="20"/>
+    <products
+            id="2"
+            name="Water gloves"
+            price="30.99"
+            description="Gloves to keep those fingers dry."
+            stock="20"/>
+    <products
+            id="3"
+            name="Metal shoes"
+            price="79.99"
+            description="Protect those toes on the construction site, or just kick hard."
+            stock="20"/>
+    <products
+            id="4"
+            name="Rock watch"
+            price="300.00"
+            description="These aren't diamonds, they're just regular rocks."
+            stock="20"/>
+    <products
+            id="5"
+            name="Earth belt"
+            price="50.00"
+            description="Keep those pants up."
+            stock="20"/>
+</dataset>
