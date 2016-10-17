@@ -19,9 +19,11 @@ class OrderRepository
     public static function addOrder(Order $order)
     {
         $sql = "INSERT INTO `orders` (`user_id`, `status_id`) VALUES (?,?)";
-        $stm = \DbConn::conn()->prepare($sql);
+        $pdo = \DbConn::conn();
+        $stm = $pdo->prepare($sql);
         try {
-            return $stm->execute(array($order->getUserId(), $order->getStatusId()));
+            $stm->execute(array($order->getUserId(), $order->getStatusId()));
+            return $pdo->lastInsertId();
         } catch (\PDOException $ex) {
             return false;
         }
@@ -61,7 +63,7 @@ class OrderRepository
 
     public static function getAllUserOrders($user_id)
     {
-        $sql = "SELECT * FROM `orders` WHERE `user_id = ?`";
+        $sql = "SELECT * FROM `orders` WHERE `user_id` = ?";
         $stm = \DbConn::conn()->prepare($sql);
         try {
             $stm->execute(array($user_id));
@@ -69,8 +71,9 @@ class OrderRepository
                 $res = $stm->fetchAll(\PDO::FETCH_CLASS);
                 $orders = array(); //$id, $user_id, $status_id
                 for ($i = 0; $i < count($res); $i++) {
-                    $order = Order($res->user_id, $res->status_id);
-                    $order->setId($res->id);
+
+                    $order = new Order($res[$i]->user_id, $res[$i]->status_id);
+                    $order->setId($res[$i]->id);
                     array_push(
                         $orders,
                         $order

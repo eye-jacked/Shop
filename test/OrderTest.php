@@ -6,25 +6,26 @@
  * Time: 19:40
  */
 
-require_once __DIR__ . './../vendor/autoload.php';
+require_once __DIR__.'./../vendor/autoload.php';
 
-use Shop\Product;
-use Shop\ProductRepository;
-use Shop\OrderProducts;
-use Shop\OrderProductsRepository;
+use Shop\Order;
+use Shop\OrderRepository;
 
-class OrderProductsTest extends PHPUnit_Extensions_Database_TestCase
+
+class OrderTest extends PHPUnit_Extensions_Database_TestCase
 {
     static private $pdo = null;
     private $conn = null;
 
-    final public function getConnection() {
+    final public function getConnection()
+    {
         if ($this->conn === null) {
             if (self::$pdo == null) {
                 self::$pdo = new PDO($GLOBALS['DB_DSN'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASSWD']);
             }
             $this->conn = $this->createDefaultDBConnection(self::$pdo, $GLOBALS['DB_NAME']);
         }
+
         return $this->conn;
     }
 
@@ -45,15 +46,20 @@ class OrderProductsTest extends PHPUnit_Extensions_Database_TestCase
     }
 
 
-    public function test_addProductToOrder()
+    public function test_addOrder()
     {
-        $product = ProductRepository::getProductById(3);
+        $user_id = 1;
+        $order = new Order(1);
 
-        $order_id = 1;
-        $product_quantity = 2;
-
-        $this->assertTrue(OrderProductsRepository::addProductToOrder($order_id, $product, $product_quantity));
+        $this->assertEquals(11, OrderRepository::addOrder($order));
     }
 
+    public function test_getAllUserOrders()
+    {
+        $orders = OrderRepository::getAllUserOrders(1);
+        $this->assertEquals(5, count($orders));
+        $order = $orders[0];
+        $this->assertInstanceOf(Order::class, $order);
 
+    }
 }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dataset>
+    <order_products
+            id="1"
+            order_id="1"
+            product_id="1"
+            product_quantity="2"
+            product_price="19"
+            />
+    <order_products
+            id="2"
+            order_id="1"
+            product_id="3"
+            product_quantity="1"
+            product_price="70"
+    />
+    <order_products
+            id="3"
+            order_id="2"
+            product_id="4"
+            product_quantity="1"
+            product_price="289"
+    />
+    <order_products
+            id="4"
+            order_id="5"
+            product_id="1"
+            product_quantity="2"
+            product_price="48"
+    />
+</dataset>
