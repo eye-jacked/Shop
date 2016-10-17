@@ -8,7 +8,7 @@
 
 namespace Shop;
 
-require_once __DIR__ . './../../vendor/autoload.php';
+require_once __DIR__.'./../../vendor/autoload.php';
 require_once 'DbConn.php';
 
 use Shop\Order;
@@ -30,11 +30,33 @@ class OrderRepository
     public static function cancelOrder(Order $order)
     {
         $sql = "DELETE FROM `orders` WHERE `id` = ?";
+        $stm = \DbConn::conn()->prepare($sql);
+        try {
+            $stm->execute(array($order->getId()));
+            if ($stm->rowCount() > 0) {
+                return true;
+            }
+        } catch (\PDOException $ex) {
+            return false;
+        }
+        return false;
     }
 
     public static function updateOrderStatus(Order $order, $status_id)
     {
-        $sql = "UPDATE `orders` SET `status_id` = ?";
+        $sql = "UPDATE `orders` SET `status_id` = ? WHERE `id` = ?";
+        $stm = \DbConn::conn()->prepare($sql);
+        try {
+            $stm->execute(array( $status_id, $order->getId()));
+            if ($stm->rowCount() > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (\PDOException $ex) {
+            return false;
+        }
+        return false;
     }
 
     public static function getAllUserOrders($user_id)
@@ -54,6 +76,7 @@ class OrderRepository
                         $order
                     );
                 }
+
                 return $orders;
             } else {
                 return false;
