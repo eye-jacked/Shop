@@ -80,7 +80,7 @@ class ProductRepository
      * @param $limit
      * @return bool| array Product
      */
-    public static function getProducts($offset=2, $limit=20)
+    public static function getProducts($offset=0, $limit=20)
     {
         $sql = "SELECT * FROM `products` LIMIT :limit OFFSET :offset";
 
@@ -118,8 +118,8 @@ class ProductRepository
         $stm = \DbConn::conn()->prepare($sql);
         try {
             $stm->execute();
-
             return intval($stm->fetchAll(\PDO::FETCH_CLASS)[0]->count);
+
         } catch (\PDOException $ex) {
 
             return false;
@@ -127,6 +127,7 @@ class ProductRepository
     }
 
     public static function changeStock(Product $product, $quan){
+
         if($quan<1){
             return false;
         }
@@ -134,10 +135,11 @@ class ProductRepository
         $current = $product->getStock();
         if($quan<= $current) {
             $product->setStock($current - $quan);
-            ProductRepository::updateProduct($product);
+
         }else{
-            return false;
+            $product->setStock($current);
         }
+        ProductRepository::updateProduct($product);
     }
 
 

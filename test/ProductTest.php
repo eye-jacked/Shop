@@ -30,7 +30,7 @@ class ProductTest extends PHPUnit_Extensions_Database_TestCase {
     }
 
     public function testGetRowCount() {
-        $this->assertEquals(5, $this->getConnection()->getRowCount('products'));
+        $this->assertEquals(10, $this->getConnection()->getRowCount('products'));
     }
 
     public function testAddProduct() {
@@ -85,7 +85,7 @@ class ProductTest extends PHPUnit_Extensions_Database_TestCase {
     {
         $pr1 = ProductRepository::GetProductByID(1);
         $tooMuch = ($pr1->getStock() + 1);
-        $this->assertFalse(ProductRepository::changeStock($pr1, $tooMuch));
+        $this->assertEquals(0,ProductRepository::changeStock($pr1, $tooMuch), "checking to see if all the stock is removed");
 
 
         $pr2 = ProductRepository::GetProductByID(2);
@@ -93,8 +93,20 @@ class ProductTest extends PHPUnit_Extensions_Database_TestCase {
         $expectation = ($pr2current-1);
         ProductRepository::changeStock($pr2, 1);
         $pr2new= ProductRepository::GetProductByID(2);
-        $this->assertEquals($expectation, $pr2new->getStock());
+        $this->assertEquals($expectation, $pr2new->getStock(), "checking to see if stock is changed");
 
     }
 
+    public function testProductCount()
+    {
+        $this->assertEquals(10, ProductRepository::getProductCount(), "should be 10");
+    }
+
+    public function testToString()
+    {
+        $pr1array = ProductRepository::GetProducts();
+        foreach($pr1array as $product){
+            echo $product;
+        }
+    }
 }

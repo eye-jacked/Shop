@@ -20,6 +20,11 @@ class Product
         $this->setDescription($description);
     }
 
+    public function __toString()
+    {
+        return "$this->name ($this->stock remain)";
+    }
+
     public function getId()
     {
         return $this->id;
