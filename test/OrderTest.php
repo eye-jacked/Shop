@@ -11,7 +11,6 @@ require_once __DIR__.'./../vendor/autoload.php';
 use Shop\Order;
 use Shop\OrderRepository;
 
-
 class OrderTest extends PHPUnit_Extensions_Database_TestCase
 {
     static private $pdo = null;
