@@ -55,13 +55,30 @@ class ProductTest extends PHPUnit_Extensions_Database_TestCase {
         $pr = ProductRepository::getProductById(4);
         $new = 'pear';
         $pr->setName($new);
-        
-       
+
+
         $this->assertTrue(ProductRepository::updateProduct($pr));
-        
+
         $pr->setId(100);
-       
+
         $this->assertFalse(ProductRepository::updateProduct($pr));
-       
+
     }
+
+    public function testGetProducts(){
+        $pr = ProductRepository::getProducts(0,2);
+
+        $this->assertEquals(2, count($pr), "assertion that limit argument returns 2 values");
+
+    }
+
+    public function testGetProducts2(){
+        $pr = ProductRepository::getProducts(2,2);
+
+        $this->assertEquals(3, $pr[0]->getId(), "assertion that offset argument returns 2 3rd product");
+
+    }
+
+
+
 }
