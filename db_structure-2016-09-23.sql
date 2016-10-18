@@ -98,8 +98,8 @@ CREATE TABLE `product_photos` (
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `fname` varchar(255) DEFAULT NULL,
-  `lname` varchar(255) DEFAULT NULL,
+  `firstName` varchar(255) DEFAULT NULL,
+  `lastName` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `address` varchar(255) DEFAULT NULL
@@ -109,7 +109,7 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `fname`, `lname`, `email`, `password`, `address`) VALUES
+INSERT INTO `users` (`id`, `firstName`, `lastName`, `email`, `password`, `address`) VALUES
 (1, 'John', 'Doe', 'john.doe@gmail.com', 'asd', 'Under the bridge, NY'),
 (2, 'Jack', 'Sparrow', 'jack.sparrow@gmail.com', 'asd', 'Treasure Island');
 

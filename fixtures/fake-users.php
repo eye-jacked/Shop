@@ -11,8 +11,8 @@ function UsersTmpl($array) {
     $xml = <<<XML
      <users
             id="{$array[0]}"
-            fname="{$array[1]}"
-            lname="{$array[2]}"
+            firstName="{$array[1]}"
+            lastName="{$array[2]}"
             email="{$array[3]}"
             password="{$array[4]}"
             address="{$array[5]}"/>

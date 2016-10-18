@@ -1,34 +1,44 @@
 <?php
 
-/*
-  Piotr Synowiec (c) 2016 psynowiec@gmail.com
+/**
+ * Piotr Synowiec (c) 2016 psynowiec@gmail.com
  */
 
 namespace Shop;
 
-require_once __DIR__ . './../../vendor/autoload.php';
-
+require_once __DIR__.'./../../vendor/autoload.php';
 require_once 'DbConn.php';
 
-use Shop\User;
 
-class UserRepository {
+class UserRepository
+{
 
     /**
      *
      * @param User $user
      * @return boolean
      */
-    public static function addUser(User $user) {
+    public static function addUser(User $user)
+    {
 
         $sql = "INSERT INTO `users` (`fname`,`lname`,`email`,`password`,`address`) VALUES (?,?,?,?,?)";
         $stm = \DbConn::conn()->prepare($sql);
         try {
-            return $stm->execute(array($user->getFname(), $user->getLname(), $user->getEmail(),
-                        $user->getPassword(), $user->getAddress()));
+            $stm->execute(array(
+                $user->getFirstName(),
+                $user->getLastName(),
+                $user->getEmail(),
+                $user->getPassword(),
+                $user->getAddress(),
+            ));
+            if ($stm->rowCount() > 0) {
+                return true;
+            }
         } catch (\PDOException $ex) {
             return false;
         }
+
+        return false;
     }
 
     /**
@@ -39,7 +49,8 @@ class UserRepository {
      * @param int $id
      * @return boolean|User
      */
-    public static function getUserById($id) {
+    public static function getUserById($id)
+    {
         $sql = "SELECT * FROM `users` WHERE `id` = ?";
         $stm = \DbConn::conn()->prepare($sql);
         try {
@@ -47,13 +58,15 @@ class UserRepository {
                 $res = $stm->fetchAll(\PDO::FETCH_CLASS);
                 if (count($res) > 0) {
                     $u = $res[0];
+
                     return new User($u->fname, $u->lname, $u->email, $u->password, $u->address, $u->id);
                 }
             }
-            return false;
         } catch (\PDOException $ex) {
             return false;
         }
+
+        return false;
     }
 
     /**
@@ -65,7 +78,8 @@ class UserRepository {
      * @param string $password
      * @return int $id|boolean
      */
-    public static function authenticateUser($email, $password) {
+    public static function authenticateUser($email, $password)
+    {
         // return user ID or false/
         $sql = "SELECT `id`, `password` FROM `users` WHERE `email` = ?";
         $stm = \DbConn::conn()->prepare($sql);
@@ -82,6 +96,7 @@ class UserRepository {
         } catch (\PDOException $ex) {
             return false;
         }
+
         return false;
     }
 
@@ -93,22 +108,28 @@ class UserRepository {
      * @param User $user
      * @return boolean
      */
-    public static function updateUser(User $user) {
+    public static function updateUser(User $user)
+    {
         $sql = "UPDATE `users` SET `fname`=?,`lname`=?,`email`=?,`password`=?,`address`=? WHERE `id`=?";
         $stm = \DbConn::conn()->prepare($sql);
         try {
-            $stm->execute(array($user->getFname(), $user->getLname(),
-                        $user->getEmail(), $user->getPassword(),
-                        $user->getAddress(), $user->getId()));
-            if($stm->rowCount() > 0 ){
-                return TRUE;
-            }
-            else {
-                return FALSE;
+            $stm->execute(array(
+                $user->getFirstName(),
+                $user->getLastName(),
+                $user->getEmail(),
+                $user->getPassword(),
+                $user->getAddress(),
+                $user->getId(),
+            ));
+            if ($stm->rowCount() > 0) {
+                return true;
+            } else {
+                return false;
             }
         } catch (\PDOException $ex) {
             return false;
         }
+
         return false;
     }
 

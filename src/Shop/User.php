@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
   Piotr Synowiec (c) 2016 psynowiec@gmail.com
  */
 
@@ -8,19 +8,19 @@ namespace Shop;
 
 class User {
 
-    use \Shop\TraitUserAdmin;
+    use TraitUserAdmin;
 
     private $id;
-    private $fname;
-    private $lname;
+    private $firstName;
+    private $lastName;
     private $email;
     private $hash_password;
     private $address;
 
-    public function __construct($fname, $lname, $email, $password, $address = '', $id = null) {
+    public function __construct($firstName, $lastName, $email, $password, $address = '', $id = null) {
         $this->id = $id;
-        $this->fname = $fname;
-        $this->lname = $lname;
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
         $this->setEmail($email);
         $this->setPassword($password);
         $this->address = $address;
@@ -30,12 +30,12 @@ class User {
         return $this->id;
     }
 
-    public function getFname() {
-        return $this->fname;
+    public function getFirstName() {
+        return $this->firstName;
     }
 
-    public function getLname() {
-        return $this->lname;
+    public function getLastName() {
+        return $this->lastName;
     }
 
     public function getEmail() {
@@ -50,12 +50,12 @@ class User {
         return $this->address;
     }
 
-    public function setFname($fname) {
-        $this->fname = $fname;
+    public function setFirstName($firstName) {
+        $this->firstName = $firstName;
     }
 
-    public function setLname($lname) {
-        $this->lname = $lname;
+    public function setLastName($lastName) {
+        $this->lastName = $lastName;
     }
 
     public function setEmail($email) {

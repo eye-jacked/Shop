@@ -67,11 +67,11 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase {
         $user = UserRepository::getUserById($id);
         $fn = 'Jack';
         $ln = 'Sparrow';
-        $user->setFname($fn);
-        $user->setLname($ln);
+        $user->setFirstName($fn);
+        $user->setLastName($ln);
         $this->assertTrue(UserRepository::updateUser($user));
         $chuser = UserRepository::getUserById($id);
-        $this->assertEquals($fn, $chuser->getFname());
+        $this->assertEquals($fn, $chuser->getFirstName());
     }
 
     public function testValidateEmail() {
