@@ -11,6 +11,12 @@ require_once 'DbConn.php';
 class PhotoRepository
 {
 
+    /**
+     *  Get single photo for Product
+     *
+     * @param $product_id
+     * @return string|bool
+     */
     public static function getProductPhoto($product_id)
     {
         $link = self::getAllProductPhotos($product_id, 1);
@@ -21,6 +27,14 @@ class PhotoRepository
         }
     }
 
+
+    /**
+     * Get all photos for Product
+     *
+     * @param $product_id
+     * @param int $limit
+     * @return array|bool
+     */
     public static function getAllProductPhotos($product_id, $limit = 0)
     {
         $sql = "SELECT `photo` FROM `product_photos` WHERE `product_id` = :id";
