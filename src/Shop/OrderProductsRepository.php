@@ -14,6 +14,8 @@ class OrderProductsRepository
 {
 
     /**
+     * Add new Product to Order or updates in case Product already exists in Order
+     *
      * @param $order_id
      * @param $product
      * @param $product_quantity
@@ -23,12 +25,12 @@ class OrderProductsRepository
     {
         $product_id = $product->getId();
         if (!self::updateOrderProductInOrder($order_id, $product_id, $product_quantity)) {
-            $sql = "INSERT INTO `order_products` (`order_id`, `product_id`, `product_quantity`, `product_price`) VALUES (?,?,?,?)";
+            $sql = "INSERT INTO `order_products` (`order_id`, `product_id`, `product_quantity`, `product_price`) "
+                ."VALUES (?,?,?,?)";
             $stm = \DbConn::conn()->prepare($sql);
 
             try {
                 $stm->execute(array($order_id, $product_id, $product_quantity, $product->getPrice()));
-
                 if ($stm->rowCount() > 0) {
                     return true;
                 }
@@ -60,6 +62,7 @@ class OrderProductsRepository
         } catch (\PDOException $ex) {
             return false;
         }
+
         return false;
     }
 
@@ -82,6 +85,7 @@ class OrderProductsRepository
         } catch (\PDOException $ex) {
             return false;
         }
+
         return false;
     }
 
@@ -100,7 +104,11 @@ class OrderProductsRepository
             if ($stm->rowCount() > 0) {
                 $res = $stm->fetchAll(\PDO::FETCH_CLASS);
                 for ($i = 0; $i < count($res); $i++) {
-                    $order_products->addProduct($res[$i]->product_id, $res[$i]->product_quantity, $res[$i]->product_price);
+                    $order_products->addProduct(
+                        $res[$i]->product_id,
+                        $res[$i]->product_quantity,
+                        $res[$i]->product_price
+                    );
                 }
 
                 return $order_products;
@@ -159,15 +167,24 @@ class OrderProductsRepository
                 $order_product = new OrderProducts($order_id);
                 $order_product->setId($res->id);
                 $order_product->addProduct($res->product_id, $res->product_quantity, $res->product_price);
+
                 return $order_product;
             }
         } catch (\PDOException $ex) {
             return false;
         }
+
         return false;
     }
 
-
+    /**
+     * Update existing product quantity in order
+     *
+     * @param $order_id
+     * @param $product_id
+     * @param $product_quantity
+     * @return bool
+     */
     public static function updateOrderProductInOrder($order_id, $product_id, $product_quantity)
     {
         $sql = "UPDATE `order_products` SET `product_quantity` = ? WHERE `order_id` = ? AND `product_id` = ?";
@@ -180,6 +197,7 @@ class OrderProductsRepository
         } catch (\PDOException $ex) {
             return false;
         }
+
         return false;
     }
 

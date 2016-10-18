@@ -6,7 +6,7 @@
  * Time: 19:40
  */
 
-require_once __DIR__ . './../vendor/autoload.php';
+require_once __DIR__.'./../vendor/autoload.php';
 
 use Shop\Product;
 use Shop\ProductRepository;
@@ -26,6 +26,7 @@ class OrderProductsTest extends PHPUnit_Extensions_Database_TestCase
             }
             $this->conn = $this->createDefaultDBConnection(self::$pdo, $GLOBALS['DB_NAME']);
         }
+
         return $this->conn;
     }
 
@@ -98,6 +99,7 @@ class OrderProductsTest extends PHPUnit_Extensions_Database_TestCase
         $this->assertEquals($product_id, $order_product->current()['id']);
     }
 
+
     public function testGetAllOrderProductsForOrder()
     {
         $order_id = 1;
@@ -113,6 +115,7 @@ class OrderProductsTest extends PHPUnit_Extensions_Database_TestCase
         }
     }
 
+
     public function testGetMostPopularProducts()
     {
         $limit = 3;
@@ -125,6 +128,7 @@ class OrderProductsTest extends PHPUnit_Extensions_Database_TestCase
         }
     }
 
+
     public function testDelAllProductsFromOrder()
     {
         $this->assertEquals(12, $this->getConnection()->getRowCount('order_products'));
@@ -132,12 +136,14 @@ class OrderProductsTest extends PHPUnit_Extensions_Database_TestCase
         $this->assertEquals(9, $this->getConnection()->getRowCount('order_products'));
     }
 
+
     public function testDelProductFromOrder()
     {
         $this->assertEquals(12, $this->getConnection()->getRowCount('order_products'));
         OrderProductsRepository::delProductFromOrder(1, 3);
         $this->assertEquals(11, $this->getConnection()->getRowCount('order_products'));
     }
+
 
     public function testUpdateOrderProductInOrder()
     {
