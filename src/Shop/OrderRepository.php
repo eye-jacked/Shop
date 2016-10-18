@@ -101,9 +101,9 @@ class OrderRepository
         try {
             $stm->execute(array($id));
             if ($stm->rowCount() > 0) {
-                $res = $stm->fetchAll(\PDO::FETCH_CLASS);
-                $order = new Order($res[0]->user_id);
-                $order->setStatusId($res[0]->status_id);
+                $res = ($stm->fetchAll(\PDO::FETCH_CLASS))[0];
+                $order = new Order($res->user_id);
+                $order->setStatusId($res->status_id);
                 $order->setId($id);
                 return $order;
             } else {
