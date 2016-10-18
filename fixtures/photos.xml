@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dataset>
+    <product_photos
+            id="1"
+            product_id="1"
+            photo="fire_hat1.jpg"/>
+    <product_photos
+            id="2"
+            product_id="1"
+            photo="fire_hat2.png"/>
+    <product_photos
+            id="3"
+            product_id="1"
+            photo="fire_hat3.jpg"/>
+    <product_photos
+            id="4"
+            product_id="1"
+            photo="fire_hat4.jpg"/>
+    <product_photos
+            id="5"
+            product_id="2"
+            photo="water_gloves1,jpg"/>
+    <product_photos
+            id="6"
+            product_id="3"
+            photo="metal_shoes1.jpg"/>
+    <product_photos
+            id="7"
+            product_id="4"
+            photo="rock_watch1.jpg"/>
+    <product_photos
+            id="8"
+            product_id="5"
+            photo="earth_belt1.jpg"/>
+</dataset>
