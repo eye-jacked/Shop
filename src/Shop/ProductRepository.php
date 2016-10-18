@@ -80,19 +80,23 @@ class ProductRepository
      * @param $limit
      * @return bool| array Product
      */
-    public static function getProducts($offset, $limit)
+    public static function getProducts($offset=2, $limit=20)
     {
-        $sql = "SELECT * FROM `products` LIMIT ? OFFSET ?";
+        $sql = "SELECT * FROM `products` LIMIT :limit OFFSET :offset";
+
         $stm = \DbConn::conn()->prepare($sql);
         try {
-            $stm->execute(array($limit, $offset));
+            $stm->bindParam(':limit', $limit, \PDO::PARAM_INT);
+            $stm->bindParam(':offset', $offset, \PDO::PARAM_INT);
+            $stm->execute();
             if ($stm->rowCount() > 0) {
+
                 $res = $stm->fetchAll(\PDO::FETCH_CLASS);
                 $products = array(); //$name, $stock, $price, $description, $id = null
                 for ($i = 0; $i < count($res); $i++) {
                     array_push(
                         $products,
-                        new Product($res->name, $res->stock, $res->price, $res->description, $res->id)
+                        new Product($res[$i]->name, $res[$i]->stock, $res[$i]->price, $res[$i]->description, $res[$i]->id)
                     );
                 }
 
@@ -102,9 +106,9 @@ class ProductRepository
             }
 
         } catch (\PDOException $ex) {
-            return false;
+            return $ex->getMessage();
+//            return false;
         }
-
         return false;
     }
 
@@ -117,10 +121,12 @@ class ProductRepository
 
             return intval($stm->fetchAll(\PDO::FETCH_CLASS)[0]->count);
         } catch (\PDOException $ex) {
+
             return false;
         }
     }
 
 }
 
-var_dump(ProductRepository::getProductCount());
+$products = ProductRepository::getProducts(1,1);
+var_dump($products);
