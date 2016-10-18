@@ -48,6 +48,14 @@ class OrderProducts implements \Iterator, \ArrayAccess
         return $this->id;
     }
 
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
     public function getOrderId()
     {
         return $this->order_id;
@@ -98,4 +106,8 @@ class OrderProducts implements \Iterator, \ArrayAccess
         unset($this->products[$offset]);
     }
 
+    public function getProductCount()
+    {
+        return count($this->products);
+    }
 }
