@@ -23,7 +23,9 @@ class OrderRepository
         $stm = $pdo->prepare($sql);
         try {
             $stm->execute(array($order->getUserId(), $order->getStatusId()));
-            return $pdo->lastInsertId();
+            $id = $pdo->lastInsertId();
+            $order->setId($id);
+            return $id;
         } catch (\PDOException $ex) {
             return false;
         }

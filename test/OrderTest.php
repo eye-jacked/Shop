@@ -48,34 +48,69 @@ class OrderTest extends PHPUnit_Extensions_Database_TestCase
     public function testAddOrder()
     {
         $user_id = 1;
-        $order = new Order(1);
+        $order = new Order($user_id);
 
-        $this->assertEquals(11, OrderRepository::addOrder($order));
+        $inserted_id = 11;
+
+        $this->assertEquals($inserted_id, OrderRepository::addOrder($order));
+        $this->assertEquals($inserted_id, $order->getId());
     }
+
+    public function testCancelOrder()
+    {
+        $user_id = 1;
+        $order = new Order($user_id);
+
+        $inserted_id = 11;
+        OrderRepository::addOrder($order);
+        $this->assertInstanceOf(Order::class, OrderRepository::getOrderById($inserted_id));
+        $this->assertTrue(OrderRepository::cancelOrder($order));
+        $this->assertFalse(OrderRepository::getOrderById($inserted_id));
+    }
+
 
     public function testGetAllUserOrders()
     {
+        $number_of_user_orders = 5;
         $orders = OrderRepository::getAllUserOrders(1);
-        $this->assertEquals(5, count($orders));
-        $order = $orders[0];
-        $this->assertInstanceOf(Order::class, $order);
+        $this->assertEquals($number_of_user_orders, count($orders));
+        $order1 = $orders[0];
+        $this->assertInstanceOf(Order::class, $order1);
+
+        $order2 = $orders[2];
+        $id = 5;
+        $user_id = 1;
+        $status_id = 2;
+        $this->assertInstanceOf(Order::class, $order2);
+        $this->assertEquals($id, $order2->getId());
+        $this->assertEquals($user_id, $order2->getUserId());
+        $this->assertEquals($status_id, $order2->getStatusId());
     }
+
 
     public function testGetOrderById()
     {
-        $this->assertInstanceOf(Order::class, OrderRepository::getOrderById(1));
+        $user_id = 1;
+        $order = new Order($user_id);
+
+        $inserted_id = 11;
+        OrderRepository::addOrder($order);
+
+        $this->assertInstanceOf(Order::class, OrderRepository::getOrderById($inserted_id));
+        $this->assertFalse(OrderRepository::getOrderById(100));
     }
+
 
     public function testUpdateOrderStatus()
     {
-        $order1 = OrderRepository::getOrderById(1);
-        OrderRepository::updateOrderStatus($order1, 3);
+        $order_id = 1;
+        $new_order_status = 3;
+        $order1 = OrderRepository::getOrderById($order_id);
+        OrderRepository::updateOrderStatus($order1, $new_order_status);
 
-        $order2 = OrderRepository::getOrderById(1);
-        $this->assertEquals(3, $order2->getStatusId());
+        $order2 = OrderRepository::getOrderById($order_id);
+        $this->assertEquals($new_order_status, $order2->getStatusId());
     }
 
-
-    // sprawdzić czy GetAllUserOrders zwraca poprawne wartośći dla wszystkich pól
 
 }
