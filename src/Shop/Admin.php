@@ -8,7 +8,7 @@ namespace Shop;
 
 class Admin {
 
-    use \Shop\TraitUserAdmin;
+    use TraitUserAdmin;
 
     private $id;
     private $email;

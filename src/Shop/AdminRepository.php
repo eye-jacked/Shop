@@ -6,28 +6,32 @@
 
 namespace Shop;
 
-require_once __DIR__ . './../../vendor/autoload.php';
-
+require_once __DIR__.'./../../vendor/autoload.php';
 require_once 'DbConn.php';
 
-use Shop\Admin;
 
-class AdminRepository {
+class AdminRepository
+{
 
     /**
      *
      * @param Admin $admin
      * @return boolean
      */
-    public static function addAdmin(Admin $admin) {
-
+    public static function addAdmin(Admin $admin)
+    {
         $sql = "INSERT INTO `admins` (`email`,`password`) VALUES (?,?)";
         $stm = \DbConn::conn()->prepare($sql);
         try {
-            return $stm->execute(array($admin->getEmail(), $admin->getPassword()));
+            $stm->execute(array($admin->getEmail(), $admin->getPassword()));
+            if ($stm->rowCount() > 0) {
+                return true;
+            }
         } catch (\PDOException $ex) {
             return false;
         }
+
+        return false;
     }
 
     /**
@@ -38,7 +42,8 @@ class AdminRepository {
      * @param int $id
      * @return boolean|Admin
      */
-    public static function getAdminById($id) {
+    public static function getAdminById($id)
+    {
         $sql = "SELECT * FROM `admins` WHERE `id` = ?";
         $stm = \DbConn::conn()->prepare($sql);
         try {
@@ -46,13 +51,15 @@ class AdminRepository {
                 $res = $stm->fetchAll(\PDO::FETCH_CLASS);
                 if (count($res) > 0) {
                     $u = $res[0];
+
                     return new Admin($u->email, $u->password, $u->id);
                 }
             }
-            return false;
         } catch (\PDOException $ex) {
             return false;
         }
+
+        return false;
     }
 
     /**
@@ -64,7 +71,8 @@ class AdminRepository {
      * @param string $password
      * @return int $id|boolean
      */
-    public static function authenticateAdmin($email, $password) {
+    public static function authenticateAdmin($email, $password)
+    {
         // return user ID or false/
         $sql = "SELECT `id`, `password` FROM `admins` WHERE `email` = ?";
         $stm = \DbConn::conn()->prepare($sql);
@@ -81,6 +89,7 @@ class AdminRepository {
         } catch (\PDOException $ex) {
             return false;
         }
+
         return false;
     }
 
@@ -92,14 +101,19 @@ class AdminRepository {
      * @param Admin $admin
      * @return boolean
      */
-    public static function updateAdmin(Admin $admin) {
+    public static function updateAdmin(Admin $admin)
+    {
         $sql = "UPDATE `admins` SET `email`=?,`password`=? WHERE `id`=?";
         $stm = \DbConn::conn()->prepare($sql);
         try {
-            return $stm->execute(array($admin->getEmail(), $admin->getPassword(), $admin->getId()));
+            $stm->execute(array($admin->getEmail(), $admin->getPassword(), $admin->getId()));
+            if ($stm->rowCount() > 0) {
+                return true;
+            }
         } catch (\PDOException $ex) {
             return false;
         }
+
         return false;
     }
 

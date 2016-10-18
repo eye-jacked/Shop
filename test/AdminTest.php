@@ -45,9 +45,9 @@ class AdminTest extends PHPUnit_Extensions_Database_TestCase {
     }
 
     public function testGetAdminById() {
-        //var_dump(UserRepository::getUserById(1));
         $this->assertFalse(AdminRepository::getAdminById(100));
         $this->assertNotFalse(AdminRepository::getAdminById(1));
+        $this->assertInstanceOf(Admin::class, AdminRepository::getAdminById(1));
     }
 
     public function testAuthenticateAdmin() {
