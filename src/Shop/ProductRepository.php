@@ -126,7 +126,20 @@ class ProductRepository
         }
     }
 
+    public static function changeStock(Product $product, $quan){
+        if($quan<1){
+            return false;
+        }
+        //assuming product will only take postive values
+        $current = $product->getStock();
+        if($quan<= $current) {
+            $product->setStock($current - $quan);
+            ProductRepository::updateProduct($product);
+        }else{
+            return false;
+        }
+    }
+
+
 }
 
-$products = ProductRepository::getProducts(1,1);
-var_dump($products);
