@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<dataset>
+    <admins
+            id="1"
+            email="admin1@gmail.com"
+            password="$2y$10$7.isNFh03J6UEm.SO5cg7OL79H6j3zcwrSI7A02h7yirfqpwtyC8u"/>
+    <admins
+            id="2"
+            email="admin2@gmail.com"
+            password="$2y$10$lGaL.JxPjbMSsP1AY5usZuA3U1Prm8owvyORW5jGaOtINmRBBqoEa"/>
+</dataset>

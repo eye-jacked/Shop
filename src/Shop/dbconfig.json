@@ -1,0 +1,6 @@
+{
+    "server": "localhost",
+    "dbname": "cl_shop",
+    "user" : "root",
+    "pass" : "root"
+}

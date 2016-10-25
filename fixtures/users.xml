@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<dataset>
+    <users
+            id="1"
+            firstName="John"
+            lastName="Doe"
+            email="john.doe@gmail.com"
+            password="asd"
+            address="Under the bridge, NY"/>
+    <users
+            id="2"
+            firstName="Jack"
+            lastName="Sparrow"
+            email="jack.sparrow@gmail.com"
+            password="asd"
+            address="Treasure Island"/>
+</dataset>
