@@ -10,6 +10,7 @@ require_once 'DbConn.php';
 
 class PhotoRepository
 {
+    const FOLDER  = '../img/products/';
 
     /**
      *  Get single photo for Product
@@ -55,6 +56,10 @@ class PhotoRepository
             if ($stm->execute()) {
                 $res = $stm->fetchAll(\PDO::FETCH_COLUMN);
                 if (count($res) > 0) {
+                    for ($i = 0; $i < count($res); $i++) {
+                        $res[$i] = self::FOLDER . $res[$i];
+                    }
+
                     return $res;
                 }
             }
