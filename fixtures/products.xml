@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dataset>
+    <products
+            id="1"
+            name="Red Hat"
+            price="20.00"
+            description="A hat to keep you warm, but not too warm."
+            stock="21"/>
+    <products
+            id="2"
+            name="Water proof gloves"
+            price="30.99"
+            description="Gloves to keep those fingers dry."
+            stock="20"/>
+    <products
+            id="3"
+            name="Steel-toed shoes"
+            price="79.99"
+            description="Protect those toes on the construction site, or just kick hard."
+            stock="20"/>
+    <products
+            id="4"
+            name="Diamond watch"
+            price="300.00"
+            description="These aren't diamonds, they're just regular rocks."
+            stock="20"/>
+    <products
+            id="5"
+            name="Leather belt"
+            price="50.00"
+            description="Keep those pants up."
+            stock="20"/>
+    <products
+            id="6"
+            name="Earth belt"
+            price="50.00"
+            description="Keep those pants up."
+            stock="20"/>
+    <products
+            id="7"
+            name="Hair gel"
+            price="50.00"
+            description="Looking fresh."
+            stock="20"/>
+    <products
+            id="8"
+            name="Whiskey and coke"
+            price="50.00"
+            description="Why do they cost so much at Kacpers?"
+            stock="20"/>
+    <products
+            id="9"
+            name="Marlboro tobacco"
+            price="50.00"
+            description="Take a break from coding."
+            stock="20"/>
+    <products
+            id="10"
+            name="Leaf's Jersey"
+            price="50.00"
+            description="Always overpriced."
+            stock="20"/>
+</dataset>
